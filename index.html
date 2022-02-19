@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p id="numbers1"></p>
+    <p id="numbers2"></p>
+    <p id="numbers3"></p>
+    <br />
+    <button id="re1">reload 1</button>
+    <button id="re2">reload 2</button>
+    <button id="re3">reload 3</button>
+    <button id="reAll">reload all</button>
+    <script>
+      timer("numbers1", 721, 3);
+      timer("numbers2", 16, 1);
+      timer("numbers3", 84, 2);
+
+      let re1 = document.getElementById("re1");
+      re1.onclick = function () {
+        timer("numbers1", 721, 3);
+      };
+      let re2 = document.getElementById("re2");
+      re2.onclick = function () {
+        timer("numbers2", 16, 1);
+      };
+      let re3 = document.getElementById("re3");
+      re3.onclick = function () {
+        timer("numbers3", 84, 2);
+      };
+      let reAll = document.getElementById("reAll");
+      reAll.onclick = function () {
+        timer("numbers1", 721, 3);
+        timer("numbers2", 16, 1);
+        timer("numbers3", 84, 2);
+      };
+      function timer(id, b, c) {
+        let numbers = document.getElementById(id);
+
+        let currentNumber = 0;
+        let maxNumber = b;
+
+        let step = c;
+        let steps = [b - b * 0.15, b - b * 0.09];
+
+        let duration = 3; //s
+        let speed = (1000 * duration) / maxNumber; //ms
+        var speed2 = (speed / maxNumber) * 3;
+
+        // let timerId;
+        // let time = Date.now();
+        // console.log(time);
+        // let fun = function () {
+        //   currentNumber = currentNumber + step;
+        //   numbers.innerText = currentNumber;
+        //   if (currentNumber > maxNumber) {
+        //     numbers.innerText = maxNumber;
+        //     console.log(Date.now() - time);
+        //     console.log("finish");
+        //     clearInterval(timerId);
+        //   } else {
+        //   }
+        // };
+
+        // timerId = setInterval(fun, speed);
+        let fun = function () {
+          currentNumber = currentNumber + step;
+          numbers.innerText = currentNumber;
+          if (currentNumber > maxNumber) {
+            numbers.innerText = maxNumber;
+            console.log("finish");
+          } else if (currentNumber > steps[0]) {
+            step = 1;
+            speed = speed + speed / 50;
+            setTimeout(fun, speed);
+          } else if (currentNumber > steps[1]) {
+            step = 1;
+            speed = speed + speed;
+            setTimeout(fun, speed);
+          } else {
+            speed = speed + speed / 250;
+            setTimeout(fun, speed);
+          }
+        };
+
+        fun();
+      }
+    </script>
+
+    <!-- <style>
+      .d2:hover {
+        font-size: large;
+        color: brown;
+      }
+
+      .d2:hover ~ .d1 {
+        border: 5px orange solid;
+      }
+    </style>
+    <div class="d1">
+      <p class="d2">123</p>
+      <div class="d1"></div>
+    </div> -->
+  </body>
+</html>
